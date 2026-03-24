@@ -1,0 +1,21 @@
+{
+  "name": "xo-tic-tac-toe",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
+    "clean": "npx rimraf dist .parcel-cache",
+    "lint": "eslint src/js/",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@parcel/transformer-sass": "^2.16.4",
+    "eslint": "^10.1.0",
+    "globals": "^17.4.0",
+    "parcel": "^2.16.4",
+    "prettier": "^3.8.1"
+  }
+}
