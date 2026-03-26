@@ -6,12 +6,21 @@ const container = document.querySelector('.container');
 
 document.documentElement.style.setProperty('--grid-rows', NUMBER_OF_ROWS);
 
-const cellClickHandler = (event, index) => {
-  const row = Math.floor(index / NUMBER_OF_ROWS);
-  const column = index % NUMBER_OF_ROWS;
+const gameboard = [
+  ['_', '_', '_'],
+  ['_', '_', '_'],
+  ['_', '_', '_'],
+];
 
-  console.log({ row });
-  console.log({ column });
+const getCellPlacement = (index, numOfRows) => {
+  const row = Math.floor(index / numOfRows);
+  const column = index % numOfRows;
+
+  return [row, column];
+};
+
+const cellClickHandler = (index) => {
+  const [row, col] = getCellPlacement(index, NUMBER_OF_ROWS);
 };
 
 const createCell = (index) => {
@@ -25,7 +34,7 @@ const createCell = (index) => {
 
   cell.appendChild(valueSpan);
 
-  cell.addEventListener('click', (event) => cellClickHandler(event, index));
+  cell.addEventListener('click', () => cellClickHandler(index));
 
   return cell;
 };
