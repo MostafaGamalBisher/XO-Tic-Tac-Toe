@@ -19,8 +19,11 @@ const getCellPlacement = (index, numOfRows) => {
   return [row, column];
 };
 
-const cellClickHandler = (index) => {
+const cellClickHandler = (e, index) => {
   const [row, col] = getCellPlacement(index, NUMBER_OF_ROWS);
+
+  console.log(row, col);
+  console.log(e.target);
 };
 
 const createCell = (index) => {
@@ -34,7 +37,7 @@ const createCell = (index) => {
 
   cell.appendChild(valueSpan);
 
-  cell.addEventListener('click', () => cellClickHandler(index));
+  cell.addEventListener('click', (e) => cellClickHandler(e, index));
 
   return cell;
 };
