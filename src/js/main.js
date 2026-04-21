@@ -6,11 +6,16 @@ const container = document.querySelector('.container');
 
 document.documentElement.style.setProperty('--grid-rows', NUMBER_OF_ROWS);
 
-let gameboard = [
-  ['_', '_', '_'],
-  ['_', '_', '_'],
-  ['_', '_', '_'],
-];
+const createBoardArray = () => {
+  const board = [];
+
+  for (let row = 0; row < NUMBER_OF_ROWS; row++) {
+    board.push(Array.from({ length: NUMBER_OF_ROWS }, () => '_'));
+  }
+  return board;
+};
+
+let gameboard = createBoardArray();
 
 const resetButton = document.querySelector('#reset');
 
@@ -109,11 +114,7 @@ const checkWin = (cPlayer) => {
 const resetBoard = () => {
   document.querySelector('.board').remove();
   createBoard();
-  gameboard = [
-    ['_', '_', '_'],
-    ['_', '_', '_'],
-    ['_', '_', '_'],
-  ];
+  gameboard = createBoardArray();
 
   currentPlayer = 'X';
   turnsCounter = 0;
@@ -138,26 +139,24 @@ const drawMarkIncell = (cell, cPlayer) => {
   cell.classList.add(`cell--${cPlayer}`);
 };
 
-const cellClickHandler = (e, index) => {
-  const cell = e.target;
+const cellClickHandler = (cell, index) => {
   const [row, col] = getCellPlacement(index, NUMBER_OF_ROWS);
 
-  if (gameboard[row][col]) {
-    turnsCounter++;
-    gameboard[row][col] = currentPlayer;
-    drawMarkIncell(cell, currentPlayer);
+  if (gameboard[row][col] !== '_') {
+    return;
   }
+
+  turnsCounter++;
+  gameboard[row][col] = currentPlayer;
+  drawMarkIncell(cell, currentPlayer);
+
   if (checkWin(currentPlayer)) {
     runWinEvent(currentPlayer);
   } else {
     if (turnsCounter === turns) {
       runDrawEvent();
-    }
-
-    if (currentPlayer === 'X') {
-      currentPlayer = 'O';
     } else {
-      currentPlayer = 'X';
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
     }
   }
 };
@@ -173,7 +172,7 @@ const createCell = (index) => {
 
   cell.appendChild(valueSpan);
 
-  cell.addEventListener('click', (e) => cellClickHandler(e, index));
+  cell.addEventListener('click', () => cellClickHandler(cell, index));
 
   return cell;
 };
