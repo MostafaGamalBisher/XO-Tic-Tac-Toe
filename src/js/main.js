@@ -1,29 +1,165 @@
-const currentPlayer = 'X';
+let currentPlayer = 'X';
 const NUMBER_OF_ROWS = 3;
 const turns = NUMBER_OF_ROWS ** 2;
-const turnsCounter = 0;
+let turnsCounter = 0;
 const container = document.querySelector('.container');
 
 document.documentElement.style.setProperty('--grid-rows', NUMBER_OF_ROWS);
 
-const gameboard = [
+let gameboard = [
   ['_', '_', '_'],
   ['_', '_', '_'],
   ['_', '_', '_'],
 ];
 
+const resetButton = document.querySelector('#reset');
+
 const getCellPlacement = (index, numOfRows) => {
   const row = Math.floor(index / numOfRows);
-  const column = index % numOfRows;
+  const col = index % numOfRows;
 
-  return [row, column];
+  return [row, col];
+};
+
+const checkRows = (mark) => {
+  let column = 0;
+  for (let row = 0; row < NUMBER_OF_ROWS; row++) {
+    while (column < NUMBER_OF_ROWS) {
+      if (gameboard[row][column] !== mark) {
+        column = 0;
+        break;
+      }
+      column++;
+    }
+
+    if (column === NUMBER_OF_ROWS) {
+      return true;
+    }
+  }
+};
+
+const checkColumns = (mark) => {
+  let row = 0;
+
+  for (let column = 0; column < NUMBER_OF_ROWS; column++) {
+    while (row < NUMBER_OF_ROWS) {
+      if (gameboard[row][column] !== mark) {
+        row = 0;
+        break;
+      }
+      row++;
+    }
+
+    if (row === NUMBER_OF_ROWS) {
+      return true;
+    }
+  }
+};
+
+const checkDiagonals = (mark) => {
+  let count = 0;
+
+  while (count < NUMBER_OF_ROWS) {
+    if (gameboard[count][count] !== mark) {
+      count = 0;
+      break;
+    }
+    count++;
+  }
+
+  if (count === NUMBER_OF_ROWS) {
+    return true;
+  }
+};
+
+const checkReverseDiagonals = (mark) => {
+  let count = 0;
+
+  while (count < NUMBER_OF_ROWS) {
+    if (gameboard[count][NUMBER_OF_ROWS - count - 1] !== mark) {
+      count = 0;
+      break;
+    }
+    count++;
+  }
+
+  if (count === NUMBER_OF_ROWS) {
+    return true;
+  }
+};
+
+const checkWin = (cPlayer) => {
+  if (checkRows(cPlayer)) {
+    return true;
+  }
+
+  if (checkColumns(cPlayer)) {
+    return true;
+  }
+
+  if (checkDiagonals(cPlayer)) {
+    return true;
+  }
+
+  if (checkReverseDiagonals(cPlayer)) {
+    return true;
+  }
+};
+
+const resetBoard = () => {
+  document.querySelector('.board').remove();
+  createBoard();
+  gameboard = [
+    ['_', '_', '_'],
+    ['_', '_', '_'],
+    ['_', '_', '_'],
+  ];
+
+  currentPlayer = 'X';
+  turnsCounter = 0;
+};
+
+const runWinEvent = (cPlayer) => {
+  setTimeout(() => {
+    alert(`Player ${cPlayer} won!`);
+    resetBoard();
+  }, 100);
+};
+
+const runDrawEvent = () => {
+  setTimeout(() => {
+    alert('Draw');
+    resetBoard();
+  }, 100);
+};
+
+const drawMarkIncell = (cell, cPlayer) => {
+  cell.querySelector('.value').textContent = cPlayer;
+  cell.classList.add(`cell--${cPlayer}`);
 };
 
 const cellClickHandler = (e, index) => {
+  const cell = e.target;
   const [row, col] = getCellPlacement(index, NUMBER_OF_ROWS);
 
-  console.log(row, col);
-  console.log(e.target);
+  if (gameboard[row][col]) {
+    turnsCounter++;
+    gameboard[row][col] = currentPlayer;
+    drawMarkIncell(cell, currentPlayer);
+  }
+  if (checkWin(currentPlayer)) {
+    runWinEvent(currentPlayer);
+  } else {
+    if (turnsCounter === turns) {
+      runDrawEvent();
+    }
+
+    if (currentPlayer === 'X') {
+      currentPlayer = 'O';
+    } else {
+      currentPlayer = 'X';
+    }
+  }
 };
 
 const createCell = (index) => {
@@ -52,5 +188,7 @@ const createBoard = () => {
   }
   container.insertAdjacentElement('afterbegin', board);
 };
+
+resetButton.addEventListener('click', resetBoard);
 
 createBoard();
