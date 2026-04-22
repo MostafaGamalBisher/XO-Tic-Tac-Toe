@@ -173,6 +173,34 @@ const createCell = (index) => {
   cell.appendChild(valueSpan);
 
   cell.addEventListener('click', () => cellClickHandler(cell, index));
+  cell.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      cellClickHandler(cell, index);
+      return;
+    }
+
+    let targetIndex = index;
+
+    if (e.key === 'ArrowRight') {
+      targetIndex = index + 1;
+    } else if (e.key === 'ArrowLeft') {
+      targetIndex = index - 1;
+    } else if (e.key === 'ArrowDown') {
+      targetIndex = index + NUMBER_OF_ROWS;
+    } else if (e.key === 'ArrowUp') {
+      targetIndex = index - NUMBER_OF_ROWS;
+    }
+
+    if (targetIndex !== index) {
+      const cells = document.querySelectorAll('.cell');
+
+      if (targetIndex >= turns || targetIndex < 0) {
+        return;
+      } else {
+        cells[targetIndex].focus();
+      }
+    }
+  });
 
   return cell;
 };
