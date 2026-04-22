@@ -1,106 +1,50 @@
-# Project Name
+# 🎮 Vanilla JS Tic-Tac-Toe
 
-A brief one-sentence description of what this project does.
+A fully functional, dynamically sized 2-player Tic-Tac-Toe game built entirely with Vanilla JavaScript, SCSS, and HTML. This project was built with a strong focus on clean architecture, state management, and accessibility.
 
-## Live Demo
+## ✨ Features
 
-[View Live →](https://your-username.github.io/project-name)
+- **2-Player Gameplay:** Classic X and O turn-based gameplay.
+- **Dynamic Win Detection:** Custom algorithm that calculates wins across rows, columns, and diagonals based on the grid size.
+- **Full Keyboard Accessibility:** \* Use `Arrow Keys` (Up, Down, Left, Right) to navigate the grid.
+  - Press `Enter` to place your mark.
+  - Seamless "Pac-Man style" wrapping on row edges for better UX.
+- **Draw Detection & Reset:** Automatically detects ties and includes a manual reset button to clear the board.
+- **Modern Styling:** Built with SCSS, utilizing CSS Custom Properties for easy theming and state-based styling (e.g., different colors for X and O).
 
-## Screenshots
+## 🛠️ Technologies Used
 
-<!-- Add screenshots here after the project is complete -->
+- **HTML5:** Semantic markup and accessibility attributes (`role`, `tabindex`).
+- **SCSS/CSS3:** Modular styling architecture (Variables, Reset, Global, Style, Responsive).
+- **Vanilla JavaScript (ES6+):** No frameworks. Uses ES Modules, event delegation, and 2D array matrix logic for game state tracking.
 
-## Features
+## 🚀 Getting Started
 
-- Feature one
-- Feature two
-- Feature three
+Since this project uses ES Modules (`<script type="module">`), you will need to serve it over a local web server (opening the file directly via `file://` in the browser will result in CORS errors).
 
-## Tech Stack
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/MostafaGamalBisher/XO-Tic-Tac-Toe
+   ```
+2. **Navigate to the project folder:**
+   `cd <XO-Tic-Tac-Toe>`
 
-- HTML5
-- SCSS (compiled by Parcel)
-- JavaScript (ES Modules)
-- Parcel (bundler + dev server)
+3. **Run a local development server:**
 
-## Getting Started
+`If you use VS Code, install the Live Server extension and click "Go Live".`
 
-### Prerequisites
+`Alternatively, if you have Node/npm installed, you can use a tool like Parcel (which was used to structure this project's SCSS) or npx serve.`
 
-- [Node.js](https://nodejs.org/) installed
+## 🧠 How to Play
 
-### Installation
+1. **Player 1 starts as X.**
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/project-name.git
+2. Click any empty cell (or use Arrow Keys + Enter) to place your mark.
 
-# Navigate into the project folder
-cd project-name
+3. The game automatically switches to Player 2 (O).
 
-# Install dependencies
-npm install
-```
+4. The first player to get 3 in a row (horizontally, vertically, or diagonally) wins!
 
-### Development
+5. If all cells are filled and no one has won, the game declares a Draw.
 
-```bash
-# Start dev server — watches all files and recompiles automatically
-npm run dev
-```
-
-Open [http://localhost:1234](http://localhost:1234) in your browser.
-
-### Production Build
-
-```bash
-# Compile and bundle everything for production
-npm run build
-```
-
-### Code Quality
-
-```bash
-# Run ESLint — checks for JS errors and bad patterns
-npm run lint
-
-# Run Prettier — formats all files
-npm run format
-```
-
-## Project Structure
-
-```
-project-name/
-├── src/
-│   ├── assets/
-│   │   ├── img/
-│   │   │   ├── icons/
-│   │   │   └── images/
-│   │   └── videos/
-│   ├── js/
-│   │   └── main.js         ← JS entry point
-│   └── scss/
-│       ├── _variables.scss ← CSS custom properties + SCSS breakpoints
-│       ├── _reset.scss     ← browser normalize
-│       ├── _global.scss    ← base element styles
-│       ├── _responsive.scss← media queries
-│       └── main.scss       ← entry point, imports all partials
-├── .gitignore
-├── .prettierignore
-├── .prettierrc
-├── eslint.config.js
-├── index.html
-└── package.json
-```
-
-## Author
-
-**Mostafa Gamal Bisher**
-
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [your-profile](https://linkedin.com/in/your-profile)
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
+6. Click the Reset button to play again.

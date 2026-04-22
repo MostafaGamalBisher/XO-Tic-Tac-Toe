@@ -8,7 +8,8 @@
     "build": "parcel build index.html",
     "clean": "npx rimraf dist .parcel-cache",
     "lint": "eslint src/js/",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy": "npm run build && npx gh-pages -d dist"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
